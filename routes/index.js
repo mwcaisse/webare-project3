@@ -1,9 +1,10 @@
 var express = require('express');
+var dao = require('../dao');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('dashboard', {});
+  dao.fetchTestData(res);
 });
 
 module.exports = router;
