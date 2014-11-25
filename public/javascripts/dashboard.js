@@ -39,6 +39,7 @@ $(document).ready(function() {
             company: company
         };
 
+        //the post call to push the data over
         $.ajax({
             async: true,
             url: "/create/review",
@@ -52,6 +53,10 @@ $(document).ready(function() {
             else {
                 alert("Failed to post data!");
             }
+            //clear all the old fields after post
+            $("#txtGame").val("");
+            $("#txtScore").val("");
+            $("#txtCompany").val("");
         });
 
     });
