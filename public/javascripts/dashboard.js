@@ -23,7 +23,16 @@ $(document).ready(function() {
         updateHoursPlayedChart($("#playeroption").val());
     });
 
-    updateAverageSpentChart();
+    //populate the container with the jade content
+    $('#containerfour').load('/containerfour', function() {
+        //register a change handler for the gameoption combobox
+        $("#scatterplotcontainer").change(function() {
+            updateAverageSpentChart(this.value);
+        });
+
+        //initialize the hours played chart
+        updateAverageSpentChart($("#scatterplotcontainer").val());
+    });
 
 });
 
@@ -139,6 +148,7 @@ function makeAmountSpentScatterPlot(data) {
             title: {
                 text: 'Average Spent (USD)'
             },
+            min: 0,
             plotLines: [{
                 value: 0,
                 width: 1,

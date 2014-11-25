@@ -11,7 +11,7 @@ router.get('/dashboard.html', function(req, res) {
 /* GET second container page */
 router.get('/containertwo', function(req, res) {
   dao.fetchAllGames(function(results) {
-    getText(function (ptext) {
+    getContainerTwoText(function (ptext) {
       res.render("containertwo", {games: results, ptext: ptext});
     });
   });
@@ -21,6 +21,13 @@ router.get('/containertwo', function(req, res) {
 router.get('/containerthree', function(req, res) {
   dao.fetchAllPlayers(function(results) {
     res.render("containerthree", {players: results});
+  });
+});
+
+/* GET four container page */
+router.get('/containerfour', function(req, res) {
+  getContainerFourText(function (ptext) {
+    res.render("containerfour", {ptext: ptext});
   });
 });
 
@@ -100,7 +107,7 @@ router.post("/create/review", function(req, res) {
   });
 });
 
-function getText(onFinished) {
+function getContainerTwoText(onFinished) {
   var num = Math.floor((Math.random() * 2) + 1);
   console.log('Random num: ' + num);
   var text = '';
@@ -111,6 +118,22 @@ function getText(onFinished) {
   }
   else {
     fs.readFile("text/containerTwoAltText", function(error, data) {
+      onFinished(data);
+    });
+  }
+}
+
+function getContainerFourText(onFinished) {
+  var num = Math.floor((Math.random() * 2) + 1);
+  console.log('Random num: ' + num);
+  var text = '';
+  if (num == 1) {
+    fs.readFile("text/containerFourText", function(error, data) {
+      onFinished(data);
+    });
+  }
+  else {
+    fs.readFile("text/containerFourAltText", function(error, data) {
       onFinished(data);
     });
   }
