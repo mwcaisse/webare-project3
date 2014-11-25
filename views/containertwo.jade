@@ -2,6 +2,5 @@ div(id='barcontainer')
 
 p This will contain relevant content.
 select(class='form-control' id='gameoption')
-    option Far Cry 4
-    option Terraria
-    option pull from db...
+    each game in games
+        option #{game}
