@@ -105,7 +105,7 @@ dao.fetchGameReviewsChart = function(game, onFinished) {
             var value = results[i];
             var data = [];
             data[0] = value.COMPANY;
-            data[1] = value.SCORE;
+            data[1] = Number(value.SCORE);
             chartData[i] = data;
         }
 

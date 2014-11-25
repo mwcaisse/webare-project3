@@ -2,10 +2,16 @@
  *
  */
 $(document).ready(function() {
-    $('#containertwo').load('/containertwo', makeBarGraph);
+    $('#containertwo').load('/containertwo', function() {
+        //when the container is loaded, add in the bar graph
+        var game = "Terraria";
+        $.getJSON("/chart/reviews?game=" + game, function(data) {
+            makeBarGraph(data);
+        });
+    });
 });
 
-function makeBarGraph() {
+function makeBarGraph(data) {
     $('#container').highcharts({
         chart: {
             type: 'column'
@@ -14,10 +20,7 @@ function makeBarGraph() {
             text: 'Game Reviews'
         },
         xAxis: {
-            type: 'category',
-            labels: {
-                rotation: -45
-            }
+            type: 'category'
         },
         yAxis: {
             min: 0,
@@ -28,7 +31,7 @@ function makeBarGraph() {
         },
         series: [{
             name: 'Company',
-            data: [1, 0, 4]
+            data: data
         }]
     });
 }
