@@ -74,6 +74,43 @@ dao.fetchGameReviewsByGame = function(game, onFinished) {
         {game : game} );
 };
 
+/** Fetches all games from the database
+ *
+ * @param onFinished The function to call with the results when done
+ */
+dao.fetchAllGames = function(onFinished) {
+    dao.fetchDataString("SELECT DISTINCT GAME FROM mwcaisse_db.GAME_REVIEW", function (results) {
+        var games = [];
+
+        for (var i=0;i<results.length;i++) {
+            games[i] = results[i].GAME;
+        }
+
+        if (onFinished) {
+            onFinished(games);
+        }
+
+    });
+};
+
+/** Fetches all players from the database
+ *
+ * @param onFinished The function to call with the results when done
+ */
+dao.fetchAllPlayers = function(onFinished) {
+    dao.fetchDataString("SELECT DISTINCT PLAYER FROM mwcaisse_db.HOURS_PLAYED", function (results) {
+        var players = [];
+
+        for (var i=0; i < results.length; i++) {
+            players[i] = results[i].PLAYER;
+        }
+
+        if (onFinished) {
+            onFinished(players);
+        }
+    });
+};
+
 /** Fetches all of the hours played for the player with the specified name
  *
  * @param player The player's name
@@ -137,6 +174,8 @@ dao.fetchHoursPlayedChart = function(player, onFinished) {
         }
     });
 };
+
+
 
 
 dao.fetchTestData = function(out) {

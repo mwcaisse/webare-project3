@@ -9,12 +9,16 @@ router.get('/dashboard.html', function(req, res) {
 
 /* GET second container page */
 router.get('/containertwo', function(req, res) {
-  res.render("containertwo");
+  dao.fetchAllGames(function(results) {
+    res.render("containertwo", {games: results});
+  });
 });
 
 /* GET third container page */
 router.get('/containerthree', function(req, res) {
-  res.render("containerthree");
+  dao.fetchAllPlayers(function(results) {
+    res.render("containerthree", {players: results});
+  });
 });
 
 /* GET test data page. */
@@ -61,6 +65,20 @@ router.get("/chart/hours", function(req, res) {
   });
 });
 
+/** Get a list of all games */
+router.get("/game/all", function(req, res) {
+  dao.fetchAllGames(function (results) {
+    res.json(results);
+  });
+});
+
+/** Get a list of all players */
+router.get("/player/all", function(req, res) {
+  dao.fetchAllPlayers(function(results) {
+    res.json(results);
+  });
+});
+
 /** Create a new review */
 router.post("/create/review", function(req, res) {
   var game = req.body.game;
@@ -76,5 +94,6 @@ router.post("/create/review", function(req, res) {
     }
   });
 });
+
 
 module.exports = router;
