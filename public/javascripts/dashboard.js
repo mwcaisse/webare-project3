@@ -2,25 +2,25 @@
 $(document).ready(function() {
     //populate the container with the jade content
     $('#containertwo').load('/containertwo', function() {
-        //when the container is loaded, add in the bar graph
-        var game = "Terraria";
-        $.getJSON("/chart/reviews?game=" + game, function(data) {
-            makeGameReviewBarGraph(data);
+        //register a change handler for the gameoption combobox
+        $("#gameoption").change(function() {
+            updateGameReviewsChart(this.value);
         });
+
+        //initialize the hours played chart
+        updateGameReviewsChart($("#gameoption").val());
+
     });
 
     //populate the container with the jade content
     $('#containerthree').load('/containerthree', function() {
-        var player = "Mitchell";
-        //add in the pie chart data
-        $.getJSON("/chart/hours?player=" + player, function(data) {
-            makeHoursPlayedPieChart(data, player);
-        });
-
         //register a change handler for the gameoption combobox
         $("#playeroption").change(function() {
             updateHoursPlayedChart(this.value);
         });
+
+        //initialize the hours played chart
+        updateHoursPlayedChart($("#playeroption").val());
     });
 
     //add in the scatter plot data
@@ -31,6 +31,15 @@ $(document).ready(function() {
 
 });
 
+/** Updates / creates the game reviews chart, fetching fresh data
+ *
+ * @param game The game to create the chart for
+ */
+function updateGameReviewsChart(game) {
+    $.getJSON("/chart/reviews?game=" + game, function(data) {
+        makeGameReviewBarGraph(data, game);
+    });
+}
 /** Updates / fetches the data for the hours played chart
  *
  * @param player The player to update the chart for
@@ -45,13 +54,13 @@ function updateHoursPlayedChart(player) {
  * populates barcontainer with a pie chart relating to the game review
  * @param data the data from the database
  */
-function makeGameReviewBarGraph(data) {
+function makeGameReviewBarGraph(data, game) {
     $('#barcontainer').highcharts({
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Game Reviews'
+            text: 'Reviews for ' + game
         },
         xAxis: {
             type: 'category'
