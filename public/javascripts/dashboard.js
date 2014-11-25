@@ -125,6 +125,7 @@ function makeHoursPlayedPieChart(data, player) {
  * @param data the data from the database
  */
 function makeAmountSpentScatterPlot(data) {
+    //console.log("Making Spent ScatterPlot: " + JSON.stringify(data));
     $('#scatterplotcontainer').highcharts({
         title: {
             text: 'Average Amount Spent per Month',
