@@ -7,6 +7,11 @@ router.get('/dashboard.html', function(req, res) {
     res.render("dashboard", { title: "Video Game Reviews"});
 });
 
+/* GET second container page */
+router.get('/containertwo', function(req, res) {
+  res.render("containertwo");
+});
+
 /* GET test data page. */
 router.get('/test', function(req, res) {
   dao.fetchTestData(res);
