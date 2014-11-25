@@ -1,5 +1,5 @@
 var express = require('express');
-var fs = require('fstream');
+var fs = require('fs');
 var dao = require('../dao');
 var router = express.Router();
 
@@ -10,9 +10,10 @@ router.get('/dashboard.html', function(req, res) {
 
 /* GET second container page */
 router.get('/containertwo', function(req, res) {
-  var ptext = getText();
   dao.fetchAllGames(function(results) {
-    res.render("containertwo", {games: results, text: ptext});
+    getText(function (ptext) {
+      res.render("containertwo", {games: results, ptext: ptext});
+    });
   });
 });
 
@@ -99,17 +100,15 @@ router.post("/create/review", function(req, res) {
   });
 });
 
-function getText() {
+function getText(onFinished) {
   var counter=1;
   var text = '';
   if (counter = 1) {
     console.log("Starting");
-    fs.readFile("text/containerTwoText.txt", function(error, data) {
-      console.log("Contents of file: " + data);
-      text = data;
+    fs.readFile("text/containerTwoText", function(error, data) {
+      onFinished(data);
     });
   }
-  return text;
 }
 
 module.exports = router;

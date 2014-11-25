@@ -156,12 +156,4 @@ function makeAmountSpentScatterPlot(data) {
         },
         series: data
     });
-<<<<<<< HEAD
 }
-
-=======
-
-
-
-}
->>>>>>> ee15e6019a719370ccc8a86fdc9c797c28367f7b
