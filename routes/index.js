@@ -43,4 +43,20 @@ router.get("/chart/reviews", function(req, res) {
   });
 });
 
+/** Create a new review */
+router.post("/create/review", function(req, res) {
+  var game = req.body.game;
+  var score = req.body.score;
+  var company = req.body.company;
+
+  dao.insertGameReview(game, score, company, function(success) {
+    if (success) {
+      res.send(200);
+    }
+    else {
+      res.send(500);
+    }
+  });
+});
+
 module.exports = router;

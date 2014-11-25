@@ -150,6 +150,66 @@ dao.fetchTestData = function(out) {
     return results;
 };
 
+/** Exexcutes the specified insert command
+ *
+ * @param queryString The query string for the insert
+ * @param queryParams The query params for the insert
+ * @param onFinished The function to call when it is finished, with true / false as a parameter. True meaning successful
+ */
+dao.insertData = function(queryString, queryParams, onFinished) {
+    var conn = dao.connect();
+
+    conn.on("connect", function() {
+
+        var query;
+        if (queryParams) {
+            query = conn.query(queryString, queryParams);
+        }
+        else {
+            query = conn.query(queryString);
+        }
+
+        var results = [];
+        var ind = 0;
+
+        //when the query finishes successfully
+        query.on("end", function () {
+            conn.end();
+            if (onFinished) {
+                onFinished(true);
+            }
+        });
+
+        //query finished with errors
+        query.on("error", function() {
+            conn.end();
+            if (onFinished) {
+                onFinished(false);
+            }
+        });
+    });
+
+    //connection finished with errors
+    conn.on("error", function() {
+        console.log("Error connecting to database");
+        if (onFinished) {
+            onFinished(false);
+        }
+    });
+};
+
+/** Inserts a Game Review into the database with the given game, score, and company
+ *
+ * @param game The game of the review
+ * @param score The score of the review
+ * @param company The company of the review
+ * @param onFinished Function to call with the status of the insert, True if successful, false otherwise
+ */
+dao.insertGameReview = function(game, score, company, onFinished) {
+    dao.insertData("INSERT INTO mwcaisse_db.GAME_REVIEW (GAME, SCORE, COMPANY)" +
+    "VALUES (:game, :score, :company)", {game: game, score: score, company: company},
+        onFinished);
+};
 
 
 /** Export the functions / object */
