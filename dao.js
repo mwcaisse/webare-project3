@@ -175,41 +175,52 @@ dao.fetchHoursPlayedChart = function(player, onFinished) {
     });
 };
 
+var months =
+{
+    JAN: 0,
+    FEB: 1,
+    MAR: 2,
+    APR: 3,
+    MAY: 4,
+    JUN: 5,
+    JUL: 6,
+    AUG: 7,
+    SEP: 8,
+    OCT: 9,
+    NOV: 10,
+    DEC: 11
+}
 
+/** Fetches the data for the Average Spent Chart
+ * @param onFinished The function to call with the results when done
+ */
+dao.fetchAverageSpentChart = function(onFinished) {
+    dao.fetchAverageSpent(function(results) {
+        var chartData = [];
 
+        var players = {};
 
-dao.fetchTestData = function(out) {
-    var results = [];
-    var c = new Client();
-    var ind = 0;
+        for (var i=0;i < results.length; i++) {
+            var value = results[i];
+            var curPlayer = value.PLAYER;
+            if (players[curPlayer] == null) {
+                players[curPlayer] = {name: curPlayer, data: new Array(12)};
+            }
+            //set the players amount spent per month
+            players[curPlayer].data[months[value.MONTH]] = Number(value.AMOUNT);
+        }
 
-    c.connect({
-        host: "localhost",
-        user: "mwcaisse",
-        password: "mwcaisse_pw"
+        //reformat the players into array for
+        var ind = 0;
+        for (var key in players) {
+            chartData[ind++] = players[key];
+        }
+
+        //return the chart data back to the caller
+        if (onFinished) {
+            onFinished(chartData);
+        }
     });
-
-    c.on("connect", function() {
-        console.log("Connected to database");
-    });
-
-    c.query("SELECT * FROM mwcaisse_db.TEST")
-    .on("result", function (res) {
-        console.log("Got results: " + res);
-        res.on("row", function(row) {
-            console.log("Row: " + inspect(row));
-            results[ind++] = inspect(row);
-        });
-    })
-    .on("end", function () {
-        out.json(results);
-    });
-
-    c.end();
-
-    console.log("Fetch Returning");
-
-    return results;
 };
 
 /** Exexcutes the specified insert command
