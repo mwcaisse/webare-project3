@@ -1,16 +1,8 @@
 // Loads the content for the first div from a jade template fragment
 $(document).ready(function() {
-    //populate the container with the jade content
-    $('#containertwo').load('/containertwo', function() {
-        //register a change handler for the gameoption combobox
-        $("#gameoption").change(function() {
-            updateGameReviewsChart(this.value);
-        });
 
-        //initialize the hours played chart
-        updateGameReviewsChart($("#gameoption").val());
-
-    });
+    /** Loads container two */
+    loadContainer2();
 
     //populate the container with the jade content
     $('#containerthree').load('/containerthree', function() {
@@ -25,7 +17,50 @@ $(document).ready(function() {
 
     updateAverageSpentChart();
 
+    /** Called when the user clicks the submit button */
+    $("#butSubmitForm").click(function() {
+        var game = $("#txtGame").val();
+        var score = $("#txtScore").val();
+        var company = $("#txtCompany").val();
+
+        //the data to post
+        var data = {
+            game: game,
+            score: score,
+            company: company
+        };
+
+        $.ajax({
+            async: true,
+            url: "/create/review",
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json"
+        }).done(function(data) {
+            if (data) {
+                loadContainer2();
+            }
+            else {
+                alert("Failed to post data!");
+            }
+        });
+
+    });
+
 });
+
+function loadContainer2() {
+    $('#containertwo').load('/containertwo', function() {
+        //register a change handler for the gameoption combobox
+        $("#gameoption").change(function() {
+            updateGameReviewsChart(this.value);
+        });
+
+        //initialize the hours played chart
+        updateGameReviewsChart($("#gameoption").val());
+
+    });
+}
 
 /** Updates / creates the game reviews chart, fetching fresh data
  *

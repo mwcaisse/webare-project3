@@ -12,12 +12,12 @@ html
     body
         div
             h1= title
-            form(class='form-horizontal', action='/create/review', method='post')
-                input(type='text' class='form-control' placeholder='Game Title' name='game')
-                input(type='text' class='form-control' placeholder='Reviewing Company' name='company')
-                input(type='text' class='form-control' placeholder='Game Rating' name='score')
+            form(class='form-horizontal')
+                input(id="txtGame", type='text' class='form-control' placeholder='Game Title' name='game')
+                input(id="txtCompany", type='text' class='form-control' placeholder='Reviewing Company' name='company')
+                input(id="txtScore", type='text' class='form-control' placeholder='Game Rating' name='score')
                 br
-                button(type='submit' class='btn btn-primary') Submit
+                button(id='butSubmitForm', type='button' class='btn btn-primary') Submit
 
             br
             p Type the name of the game in the first Text box. Type the company who reviewed the game in the second text box. Give the game a rating from 1-100 in the second text box.
