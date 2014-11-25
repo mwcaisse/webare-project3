@@ -18,7 +18,7 @@ $(document).ready(function() {
 });
 
 function makeGameReviewBarGraph(data) {
-    $('#container').highcharts({
+    $('#barcontainer').highcharts({
         chart: {
             type: 'column'
         },
@@ -44,7 +44,7 @@ function makeGameReviewBarGraph(data) {
 
 
 function makeHoursPlayedPieChart(data, player) {
-    $('#containerthree').highcharts({
+    $('#piecontainer').highcharts({
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: 1,//null,
@@ -68,7 +68,7 @@ function makeHoursPlayedPieChart(data, player) {
         },
         series: [{
             type: 'pie',
-            name: 'Browser share',
+            name: 'Hours played',
             data: data
         }]
     });

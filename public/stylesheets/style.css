@@ -10,3 +10,13 @@ a {
 .form-control {
   width: 200px;
 }
+.btn-default {
+  background: aliceblue;
+}
+
+img {
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
