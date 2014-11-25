@@ -84,6 +84,14 @@ dao.fetchHoursPlayedByGame = function(game, onFinished) {
         {game : game} );
 };
 
+/** Fetches the average spent data
+ *
+ * @param onFinished The function to call with the results when finished
+ */
+dao.fetchAverageSpent = function(onFinished) {
+    dao.fetchDataString("SELECT * FROM mwcaisse_db.AVERAGE_SPENT", onFinished);
+}
+
 
 dao.fetchTestData = function(out) {
     var results = [];

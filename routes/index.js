@@ -28,4 +28,11 @@ router.get("/hours", function(req, res) {
   });
 });
 
+/** GET Average Spent */
+router.get("/spent", function(req, res) {
+  dao.fetchAverageSpent(function(results) {
+    res.json(results);
+  });
+});
+
 module.exports = router;
