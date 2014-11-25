@@ -191,7 +191,7 @@ function makeAmountSpentScatterPlot(data) {
             }]
         },
         tooltip: {
-            valueSuffix: '°C'
+            valuePrefix: '$'
         },
         legend: {
             layout: 'vertical',
