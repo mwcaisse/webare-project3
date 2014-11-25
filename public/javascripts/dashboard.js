@@ -10,7 +10,7 @@ $(document).ready(function() {
     });
 
     //populate the container with the jade content
-    $('#containerthree').load('/containertwo', function() {
+    $('#containerthree').load('/containerthree', function() {
         var player = "Mitchell";
         //add in the pie chart data
         $.getJSON("/chart/hours?player=" + player, function(data) {

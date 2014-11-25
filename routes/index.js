@@ -16,7 +16,9 @@ router.get('/containertwo', function(req, res) {
 
 /* GET third container page */
 router.get('/containerthree', function(req, res) {
-  res.render("containerthree");
+  dao.fetchAllPlayers(function(results) {
+    res.render("containerthree", {players: results});
+  });
 });
 
 /* GET test data page. */
