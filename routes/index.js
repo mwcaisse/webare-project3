@@ -14,6 +14,11 @@ router.get('/containertwo', function(req, res) {
   });
 });
 
+/* GET third container page */
+router.get('/containerthree', function(req, res) {
+  res.render("containerthree");
+});
+
 /* GET test data page. */
 router.get('/test', function(req, res) {
   dao.fetchTestData(res);

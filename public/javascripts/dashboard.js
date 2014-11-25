@@ -9,10 +9,13 @@ $(document).ready(function() {
         });
     });
 
-    var player = "Mitchell";
-    //add in the pie chart data
-    $.getJSON("/chart/hours?player=" + player, function(data) {
-        makeHoursPlayedPieChart(data, player);
+    //populate the container with the jade content
+    $('#containerthree').load('/containertwo', function() {
+        var player = "Mitchell";
+        //add in the pie chart data
+        $.getJSON("/chart/hours?player=" + player, function(data) {
+            makeHoursPlayedPieChart(data, player);
+        });
     });
 
     //add in the scatter plot data

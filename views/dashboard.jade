@@ -11,7 +11,7 @@ html
 
     body
         div
-            h1= title
+            h1(class='header1')= title
             form(class='form-horizontal', action='/create/review', method='post')
                 input(type='text' class='form-control' placeholder='Game Title' name='game')
                 input(type='text' class='form-control' placeholder='Reviewing Company' name='company')
@@ -24,13 +24,6 @@ html
 
         div(id='containertwo')
         div(id='containerthree')
-            div(id='piecontainer')
-            select(class='form-control' id='playeroption')
-                option Mitchell
-                option Zac
-                option pull from db...
-            img(src='imgs/reviews.jpg')
-        br
         div(id='containerfour')
             div(id='scatterplotcontainer')
             p This will contain relevant data soon...
