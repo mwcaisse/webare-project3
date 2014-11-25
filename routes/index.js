@@ -20,4 +20,12 @@ router.get("/reviews", function(req, res) {
   });
 });
 
+/** GET Hours Played */
+router.get("/hours", function(req, res) {
+  var game = req.param("game", "");
+  dao.fetchHoursPlayedByGame(game, function(results) {
+    res.json(results);
+  });
+});
+
 module.exports = router;
