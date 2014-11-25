@@ -90,7 +90,30 @@ dao.fetchHoursPlayedByGame = function(game, onFinished) {
  */
 dao.fetchAverageSpent = function(onFinished) {
     dao.fetchDataString("SELECT * FROM mwcaisse_db.AVERAGE_SPENT", onFinished);
-}
+};
+
+/** Fetches the data for the GameReviews Chart
+ *
+ * @param game The game to get the chart data for
+ * @param onFinished The function to call when the results are ready
+ */
+dao.fetchGameReviewsChart = function(game, onFinished) {
+    dao.fetchGameReviewsByGame(game, function(results) {
+        var chartData = [];
+
+        for (var i = 0; i < results.length; i++) {
+            var value = results[i];
+            var data = [];
+            data[0] = value.COMPANY;
+            data[1] = value.SCORE;
+            chartData[i] = data;
+        }
+
+        if (onFinished) {
+            onFinished(chartData);
+        }
+    });
+};
 
 
 dao.fetchTestData = function(out) {

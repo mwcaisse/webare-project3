@@ -35,4 +35,12 @@ router.get("/spent", function(req, res) {
   });
 });
 
+/** GET chart data for reviews */
+router.get("/chart/reviews", function(req, res) {
+  var game = req.param("game", "");
+  dao.fetchGameReviewsChart(game, function(chartData) {
+    res.json(chartData);
+  });
+});
+
 module.exports = router;
