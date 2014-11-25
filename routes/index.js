@@ -3,8 +3,8 @@ var dao = require('../dao');
 var router = express.Router();
 
 /** GET home page */
-router.get('/', function(req, res) {
-    res.render("dashboard", {});
+router.get('/dashboard.html', function(req, res) {
+    res.render("dashboard", { title: "Video Game Reviews"});
 });
 
 /* GET test data page. */
