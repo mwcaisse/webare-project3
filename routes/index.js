@@ -96,11 +96,16 @@ router.post("/create/review", function(req, res) {
 });
 
 function getText(onFinished) {
-  var counter=1;
+  var num = Math.floor((Math.random() * 2) + 1);
+  console.log('Random num: ' + num);
   var text = '';
-  if (counter = 1) {
-    console.log("Starting");
+  if (num == 1) {
     fs.readFile("text/containerTwoText", function(error, data) {
+      onFinished(data);
+    });
+  }
+  else {
+    fs.readFile("text/containerTwoAltText", function(error, data) {
       onFinished(data);
     });
   }
