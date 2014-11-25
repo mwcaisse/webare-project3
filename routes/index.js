@@ -23,11 +23,6 @@ router.get('/containerthree', function(req, res) {
   });
 });
 
-/* GET test data page. */
-router.get('/test', function(req, res) {
-  dao.fetchTestData(res);
-});
-
 /* GET reviews for a game */
 router.get("/reviews", function(req, res) {
   var game = req.param('game', "");
@@ -63,6 +58,13 @@ router.get("/chart/reviews", function(req, res) {
 router.get("/chart/hours", function(req, res) {
   var player = req.param("player", "");
   dao.fetchHoursPlayedChart(player, function(chartData) {
+    res.json(chartData);
+  });
+});
+
+/** GET chart data for average spent */
+router.get("/chart/spent", function (req, res) {
+  dao.fetchAverageSpentChart(function(chartData) {
     res.json(chartData);
   });
 });
