@@ -6,12 +6,12 @@ $(document).ready(function() {
         //when the container is loaded, add in the bar graph
         var game = "Terraria";
         $.getJSON("/chart/reviews?game=" + game, function(data) {
-            makeBarGraph(data);
+            makeGameReviewBarGraph(data);
         });
     });
 });
 
-function makeBarGraph(data) {
+function makeGameReviewBarGraph(data) {
     $('#container').highcharts({
         chart: {
             type: 'column'
