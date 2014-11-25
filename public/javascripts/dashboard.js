@@ -16,6 +16,11 @@ $(document).ready(function() {
         $.getJSON("/chart/hours?player=" + player, function(data) {
             makeHoursPlayedPieChart(data, player);
         });
+
+        //register a change handler for the gameoption combobox
+        $("#playeroption").change(function() {
+            updateHoursPlayedChart(this.value);
+        });
     });
 
     //add in the scatter plot data
@@ -25,6 +30,16 @@ $(document).ready(function() {
     });
 
 });
+
+/** Updates / fetches the data for the hours played chart
+ *
+ * @param player The player to update the chart for
+ */
+function updateHoursPlayedChart(player) {
+    $.getJSON("/chart/hours?player=" + player, function(data) {
+        makeHoursPlayedPieChart(data, player);
+    });
+};
 
 /**
  * populates barcontainer with a pie chart relating to the game review
