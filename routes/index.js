@@ -25,4 +25,27 @@ router.get("/reviews", function(req, res) {
   });
 });
 
+/** GET Hours Played */
+router.get("/hours", function(req, res) {
+  var game = req.param("game", "");
+  dao.fetchHoursPlayedByGame(game, function(results) {
+    res.json(results);
+  });
+});
+
+/** GET Average Spent */
+router.get("/spent", function(req, res) {
+  dao.fetchAverageSpent(function(results) {
+    res.json(results);
+  });
+});
+
+/** GET chart data for reviews */
+router.get("/chart/reviews", function(req, res) {
+  var game = req.param("game", "");
+  dao.fetchGameReviewsChart(game, function(chartData) {
+    res.json(chartData);
+  });
+});
+
 module.exports = router;
