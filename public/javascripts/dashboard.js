@@ -274,3 +274,4 @@ function makeAmountSpentScatterPlot(data, person) {
         }]
     });
 }
+
