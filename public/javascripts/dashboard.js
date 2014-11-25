@@ -11,7 +11,7 @@ $(document).ready(function() {
     });
 
     var player = "Mitchell";
-    $.getJSON("/chart/reviews?game=" + game, function(data, player) {
+    $.getJSON("/chart/hours?player=" + player, function(data) {
         makeHoursPlayedPieChart(data, player);
     });
 

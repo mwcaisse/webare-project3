@@ -74,14 +74,14 @@ dao.fetchGameReviewsByGame = function(game, onFinished) {
         {game : game} );
 };
 
-/** Fetches all of the hours played for the game with the specified name
+/** Fetches all of the hours played for the player with the specified name
  *
- * @param game The name of the game
+ * @param player The player's name
  * @param onFinished The function to call with the results
  */
-dao.fetchHoursPlayedByGame = function(game, onFinished) {
-    dao.fetchDataString("SELECT * FROM mwcaisse_db.HOURS_PLAYED WHERE UPPER(GAME) = UPPER(:game)", onFinished,
-        {game : game} );
+dao.fetchHoursPlayedByPlayer = function(player, onFinished) {
+    dao.fetchDataString("SELECT * FROM mwcaisse_db.HOURS_PLAYED WHERE UPPER(PLAYER) = UPPER(:player)", onFinished,
+        {player : player} );
 };
 
 /** Fetches the average spent data
@@ -106,6 +106,29 @@ dao.fetchGameReviewsChart = function(game, onFinished) {
             var data = [];
             data[0] = value.COMPANY;
             data[1] = Number(value.SCORE);
+            chartData[i] = data;
+        }
+
+        if (onFinished) {
+            onFinished(chartData);
+        }
+    });
+};
+
+/** Fetches the data for the Hours Played Chart
+ *
+ * @param player The player to get the data for
+ * @param onFinished The function to call when the results are ready
+ */
+dao.fetchHoursPlayedChart = function(player, onFinished) {
+    dao.fetchHoursPlayedByPlayer(player, function(results) {
+        var chartData = [];
+
+        for (var i = 0; i < results.length; i++) {
+            var value = results[i];
+            var data = [];
+            data[0] = value.GAME;
+            data[1] = Number(value.HOURS);
             chartData[i] = data;
         }
 

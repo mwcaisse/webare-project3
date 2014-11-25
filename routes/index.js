@@ -48,6 +48,14 @@ router.get("/chart/reviews", function(req, res) {
   });
 });
 
+/** GET chart data for hours played */
+router.get("/chart/hours", function(req, res) {
+  var player = req.param("player", "");
+  dao.fetchHoursPlayedChart(player, function(chartData) {
+    res.json(chartData);
+  });
+});
+
 /** Create a new review */
 router.post("/create/review", function(req, res) {
   var game = req.body.game;
