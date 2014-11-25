@@ -56,7 +56,7 @@ router.post("/create/review", function(req, res) {
 
   dao.insertGameReview(game, score, company, function(success) {
     if (success) {
-      res.send(200);
+      res.redirect("/dashboard.html");
     }
     else {
       res.send(500);

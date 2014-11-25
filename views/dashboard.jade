@@ -12,7 +12,7 @@ html
     body
         div
             h1= title
-            form(class='form-horizontal')
+            form(class='form-horizontal', action='/create/review', method='post')
                 input(type='text' class='form-control' placeholder='Game Title' name='game')
                 input(type='text' class='form-control' placeholder='Reviewing Company' name='company')
                 input(type='text' class='form-control' placeholder='Game Rating' name='score')
