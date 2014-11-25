@@ -1,7 +1,6 @@
-/** Document / Page loaded function
- *
- */
+// Loads the content for the first div from a jade template fragment
 $(document).ready(function() {
+    //populate the container with the jade content
     $('#containertwo').load('/containertwo', function() {
         //when the container is loaded, add in the bar graph
         var game = "Terraria";
@@ -11,10 +10,12 @@ $(document).ready(function() {
     });
 
     var player = "Mitchell";
+    //add in the pie chart data
     $.getJSON("/chart/hours?player=" + player, function(data) {
         makeHoursPlayedPieChart(data, player);
     });
 
+    //add in the scatter plot data
     var person = "Mitchell";
     $.getJSON("/chart/hours?average=" + person, function(data) {
         makeAmountSpentScatterPlot(data, person);
@@ -22,6 +23,10 @@ $(document).ready(function() {
 
 });
 
+/**
+ * populates barcontainer with a pie chart relating to the game review
+ * @param data the data from the database
+ */
 function makeGameReviewBarGraph(data) {
     $('#barcontainer').highcharts({
         chart: {
@@ -47,7 +52,11 @@ function makeGameReviewBarGraph(data) {
     });
 }
 
-
+/**
+ * populates piecontainer with pie chart relating to hours played per person per game
+ * @param data the data from the database
+ * @param player the player being represented
+ */
 function makeHoursPlayedPieChart(data, player) {
     $('#piecontainer').highcharts({
         chart: {
@@ -79,22 +88,23 @@ function makeHoursPlayedPieChart(data, player) {
     });
 }
 
-function makeAmountSpentScatterPlot(data) {
+/**
+ * populates scatterplotcontainer with a scatter plot relating to average spent
+ * @param data the data from the database
+ */
+function makeAmountSpentScatterPlot(data, person) {
     $('#scatterplotcontainer').highcharts({
         chart: {
             type: 'scatter',
             zoomType: 'xy'
         },
         title: {
-            text: 'Height Versus Weight of 507 Individuals by Gender'
-        },
-        subtitle: {
-            text: 'Source: Heinz  2003'
+            text: 'Average Amount Spent On Games'
         },
         xAxis: {
             title: {
                 enabled: true,
-                text: 'Height (cm)'
+                text: 'Something'
             },
             startOnTick: true,
             endOnTick: true,
@@ -102,18 +112,8 @@ function makeAmountSpentScatterPlot(data) {
         },
         yAxis: {
             title: {
-                text: 'Weight (kg)'
+                text: 'Average amount spent'
             }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            verticalAlign: 'top',
-            x: 100,
-            y: 70,
-            floating: true,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-            borderWidth: 1
         },
         plotOptions: {
             scatter: {
@@ -132,15 +132,11 @@ function makeAmountSpentScatterPlot(data) {
                             enabled: false
                         }
                     }
-                },
-                tooltip: {
-                    headerFormat: '<b>{series.name}</b><br>',
-                    pointFormat: '{point.x} cm, {point.y} kg'
                 }
             }
         },
         series: [{
-            name: 'Female',
+            name: 'WE WILL CHANGE THIS',
             color: 'rgba(223, 83, 83, .5)',
             data: [[161.2, 51.6], [167.5, 59.0], [159.5, 49.2], [157.0, 63.0], [155.8, 53.6],
                 [170.0, 59.0], [159.1, 47.6], [166.0, 69.8], [176.2, 66.8], [160.2, 75.2],
@@ -196,7 +192,7 @@ function makeAmountSpentScatterPlot(data) {
                 [176.5, 71.8], [164.4, 55.5], [160.7, 48.6], [174.0, 66.4], [163.8, 67.3]]
 
         }, {
-            name: 'Male',
+            name: person,
             color: 'rgba(119, 152, 191, .5)',
             data: [[174.0, 65.6], [175.3, 71.8], [193.5, 80.7], [186.5, 72.6], [187.2, 78.8],
                 [181.5, 74.8], [184.0, 86.4], [184.5, 78.4], [175.0, 62.0], [184.0, 81.6],
