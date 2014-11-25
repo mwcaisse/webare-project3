@@ -12,4 +12,12 @@ router.get('/test', function(req, res) {
   dao.fetchTestData(res);
 });
 
+/* GET reviews for a game */
+router.get("/reviews", function(req, res) {
+  var game = req.param('game', "");
+  dao.fetchGameReviewsByGame(game, function(results) {
+    res.json(results);
+  });
+});
+
 module.exports = router;
